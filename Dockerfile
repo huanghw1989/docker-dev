@@ -30,9 +30,16 @@ RUN apt-get update && \
 # For Ops Command: less, ps, ping, ifconfig, netstat, vim, lsof
 RUN apt-get install -y less procps iputils-ping telnet net-tools vim lsof curl wget
 
+# nodejs -> machine-share
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@latest && \
+    npm install -g machine-share
+
 # Clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     apt-get autoremove -y && \
     apt-get clean
 
+ENV SHELL=bash
 CMD ["bash"]
